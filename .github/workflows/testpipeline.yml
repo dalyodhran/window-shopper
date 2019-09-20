@@ -14,24 +14,24 @@ jobs:
       uses: actions/checkout@v1
     - name: Build and test
       run: |
-      cd Texstyle
-      xcodebuild clean test -project Texstyle.xcodeproj -scheme Texstyle -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-      bash <(curl -s https://codecov.io/bash)
+        cd Texstyle
+        xcodebuild clean test -project Texstyle.xcodeproj -scheme Texstyle -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+        bash <(curl -s https://codecov.io/bash)
       env:
        destination: ${{ matrix.destination }}
        
        language: swift
        osx_image: xcode10.2
        
-       env:
-         matrix:
-          - DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone X"
-          - DESTINATION="platform=tvOS Simulator,OS=12.2,name=Apple TV 4K"
+      env:
+        matrix:
+        - DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone X"
+        - DESTINATION="platform=tvOS Simulator,OS=12.2,name=Apple TV 4K"
 
-        before_script: cd Texstyle
+      before_script: cd Texstyle
 
-        script:
-         - xcodebuild clean test -project Texstyle.xcodeproj -scheme Texstyle -destination "$DESTINATION" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      script:
+        - xcodebuild clean test -project Texstyle.xcodeproj -scheme Texstyle -destination "$DESTINATION" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
    
-        after_success:
-         - bash <(curl -s https://codecov.io/bash
+      after_success:
+        - bash <(curl -s https://codecov.io/bash
